@@ -14,7 +14,7 @@ package:
     - '!package-lock.json'
 
 custom:
-  app_acronym: perfsys-test-task
+  app_acronym: perfsys-task-github
   default_stage: test
   stage: ${opt:stage, self:custom.default_stage}
   stack_name: ${self:custom.app_acronym}-${self:custom.stage}
