@@ -20,7 +20,7 @@ def event(event, _context):
     callback_url = dynamodb["NewImage"]["callback_url"]["S"]
     textract = dynamodb["NewImage"]["textract"]["S"]
 
-    if event_name == "MODIFY" and state == State.UPLOADED:
+    if event_name == "MODIFY" and state == State.PROCESSED:
         requests.post(url=callback_url, data={"textract": json.loads(gzip.decompress(textract).decode("utf-8"))})
 
     return {

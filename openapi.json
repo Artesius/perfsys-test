@@ -1,0 +1,171 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Perfsys Test Task",
+    "description": "This is a sample API, created for testing serverless system for managing DynamoDB Streams, S3 Triggers and combine it with AWS Lambda usage.",
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://z0ujsglkge.execute-api.us-east-1.amazonaws.com/dev"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Files",
+      "description": "Your work with files"
+    }
+  ],
+  "paths": {
+    "/files": {
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Create an entry for pre-signed upload URL in dynamo and return upload URL with file id",
+        "description": "Add a new pet to the store",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilePost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilePostResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Callback URL is not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files/{file_id}": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Find textract by file ID",
+        "description": "Returns a single texract response",
+        "parameters": [
+          {
+            "name": "file_id",
+            "in": "path",
+            "description": "ID of file to find",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TextractResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unable to download",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FilePost": {
+        "type": "object",
+        "properties": {
+          "callback_url": {
+            "type": "string"
+          }
+        }
+      },
+      "FilePostResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "upload_url": {
+            "type": "string"
+          }
+        }
+      },
+      "TextractResponse": {
+        "type": "object",
+        "properties": {
+          "textract": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Block"
+            }
+          }
+        }
+      },
+      "Block": {
+        "type": "object",
+        "properties": {
+          "BlockType": {
+            "type": "string"
+          },
+          "Geometry": {
+            "type": "object"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error_message": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      }
+    }
+  }
+}

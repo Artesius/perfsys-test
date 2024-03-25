@@ -1,4 +1,4 @@
-service: serverless-test
+service: perfsys-test-task
 
 frameworkVersion: "3"
 
@@ -17,7 +17,7 @@ package:
     - requirements.txt
 
 custom:
-  app_acronym: perfsys-test
+  app_acronym: perfsys-test-task
   default_stage: test
   stage: ${opt:stage, self:custom.default_stage}
   stack_name: ${self:custom.app_acronym}-${self:custom.stage}

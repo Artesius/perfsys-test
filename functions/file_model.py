@@ -15,12 +15,12 @@ KEY_BASE = os.environ["S3_KEY_BASE"]
 
 class State(IntEnum):
     """
-    Manage file states in dynamo with a string field.
+    Manage file states in dynamo with an int field.
     """
 
     CREATED = 1
     RECEIVED = 2
-    UPLOADED = 3
+    PROCESSED = 3
 
 
 class FileModel(Model):
@@ -82,11 +82,11 @@ class FileModel(Model):
         logger.debug("mark file received: {}".format(self.file_id))
         self.save()
 
-    def mark_uploaded(self):
-        """Marks file as having been uploaded via a PUT to the file's REST path."""
-        uploaded_states = [State.RECEIVED.value, State.UPLOADED.value]
-        if self.state not in uploaded_states:
-            raise AssertionError('State: "{}" must be one of {}'.format(self.state, uploaded_states))
-        self.state = State.UPLOADED.value
-        logger.debug("mark file uploaded: {}".format(self.file_id))
+    def mark_processed(self):
+        """Marks file as having been processed via a textract and saved to DynamoDB."""
+        processed_states = [State.RECEIVED.value, State.PROCESSED.value]
+        if self.state not in processed_states:
+            raise AssertionError('State: "{}" must be one of {}'.format(self.state, processed_states))
+        self.state = State.PROCESSED.value
+        logger.debug("mark file processed: {}".format(self.file_id))
         self.save()

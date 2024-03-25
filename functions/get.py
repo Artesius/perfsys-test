@@ -34,7 +34,7 @@ def get(event, _context):
         }
 
     return {
-        "statusCode": httplib.ACCEPTED,
+        "statusCode": httplib.OK,
         "body": {
             "textract": textract,
         },

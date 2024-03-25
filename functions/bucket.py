@@ -35,7 +35,7 @@ def event(event, context):
                 file_text = detect_file_text(bucket, key)
                 logger.debug("textract: {}".format(file_text))
                 file.textract = gzip.compress(json.dumps(file_text).encode("utf-8"))
-                file.mark_uploaded()
+                file.mark_processed()
             except UpdateError:
                 return {
                     "statusCode": httplib.BAD_REQUEST,
