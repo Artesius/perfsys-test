@@ -6,15 +6,12 @@ plugins:
   - serverless-python-requirements
 
 package:
-  exclude:
-    - node_modules/**
-    - .idea/**
-    - .requirements/**
-    - env/**
-    - README.md
-    - package.json
-    - package-lock.json
-    - requirements.txt
+  patterns:
+    - '!node_modules/**'
+    - '!.idea/**'
+    - '!README.md'
+    - '!package.json'
+    - '!package-lock.json'
 
 custom:
   app_acronym: perfsys-test-task
