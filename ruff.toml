@@ -1,0 +1,66 @@
+line-length = 120
+
+[lint]
+ignore = [
+    "N805",
+    "D1",
+    "D203",
+    "D212",
+    "D401",
+    "ANN101",
+    "ANN102",
+    "BLE001",
+    "B904",
+    "B905",
+    "PLR0913",
+    "PLR2004",
+    "RUF012",
+    "RUF100",
+]
+select = [
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "ANN",
+    "S",
+    "BLE",
+    "B",
+    "COM",
+    "C",
+    "DTZ",
+    "EM",
+    "ISC",
+    "ICN",
+    "G",
+    "INP",
+    "PIE",
+    "T20",
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SIM",
+    "TID",
+    "TCH",
+    "INT",
+    "ARG",
+    "PTH",
+    "ERA",
+    "PL",
+    "RUF",
+    # TODO: check C == C40 and T == T20
+]
+
+[flake8-annotations]
+allow-star-arg-any = true
+
+[flake8-unused-arguments]
+ignore-variadic-names = true
+
+[isort]
+lines-after-imports = 2

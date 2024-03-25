@@ -1,0 +1,10 @@
+{
+  "name": "serverless-test",
+  "version": "1.0.0",
+  "description": "Serverless signed uploader REST API using pynamodb, s3 generated events, custom log format, and DRY serverless.yml with custom section",
+  "author": "Artesius",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-python-requirements": "^6.0.1"
+  }
+}
